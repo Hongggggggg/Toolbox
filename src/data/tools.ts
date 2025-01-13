@@ -22,6 +22,15 @@ export const toolCategories: ToolCategory[] = [
     tools: [],
   },
   {
+    id: 'text',
+    name: '文本工具',
+    path: '/tools/text',
+    icon: 'type',
+    tools: [
+      { name: '文本对比', path: '/tools/text/compare', description: '对比两段文本之间的差异，支持高亮显示不同之处' },
+    ],
+  },
+  {
     id: 'image',
     name: '图片工具',
     path: '/tools/image',

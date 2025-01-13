@@ -211,17 +211,17 @@ const GifCreate: React.FC = () => {
       // 创建GIF实例
       const gif = new GIF({
         workers: 2,
-        workerScript: '/assets/gif.worker.js',
         quality: 10,
         debug: true,
-        background: '#FFFFFF' // 设置白色背景
+        background: '#FFFFFF', // 设置白色背景
+        workerScript: new URL('gif.js/dist/gif.worker.js', import.meta.url).href
       });
 
       console.log('[GIF Create] GIF实例配置:', {
         workers: 2,
-        workerScript: '/assets/gif.worker.js',
         quality: 10,
-        debug: true
+        debug: true,
+        workerScript: new URL('gif.js/dist/gif.worker.js', import.meta.url).href
       });
 
       let renderStarted = false;
@@ -230,7 +230,13 @@ const GifCreate: React.FC = () => {
       gif.on('error', (error: Error) => {
         console.error('[GIF Create] GIF生成错误:', error);
         console.error('[GIF Create] 错误堆栈:', error.stack);
-        message.error({ content: `GIF生成失败: ${error.message}`, key: loadingKey });
+        console.error('[GIF Create] Worker状态:', gif.running ? '运行中' : '已停止');
+        console.error('[GIF Create] 帧数:', gif.frames.length);
+        message.error({ 
+          content: `GIF生成失败: ${error.message}`, 
+          key: loadingKey,
+          duration: 3 
+        });
         setIsProcessing(false);
         setProgress(0);
       });
@@ -238,6 +244,7 @@ const GifCreate: React.FC = () => {
       // 添加进度监听
       gif.on('progress', (p: number) => {
         console.log('[GIF Create] 渲染进度:', Math.floor(p * 100) + '%');
+        console.log('[GIF Create] Worker状态:', gif.running ? '运行中' : '已停止');
         if (!renderStarted) {
           renderStarted = true;
           console.log('[GIF Create] 开始渲染...');
@@ -256,15 +263,23 @@ const GifCreate: React.FC = () => {
       gif.on('finished', (blob: Blob) => {
         console.log('[GIF Create] GIF生成完成');
         console.log('[GIF Create] 生成的GIF大小:', formatFileSize(blob.size));
+        console.log('[GIF Create] Worker状态:', gif.running ? '运行中' : '已停止');
         try {
           const url = URL.createObjectURL(blob);
           setGifPreview(url);
-          // 保存 blob 用于后续下载
           setGifBlob(blob);
-          message.success({ content: 'GIF生成成功！', key: loadingKey });
+          message.success({ 
+            content: 'GIF生成成功！', 
+            key: loadingKey,
+            duration: 3 
+          });
         } catch (error) {
           console.error('[GIF Create] 保存文件失败:', error);
-          message.error({ content: '保存文件失败，请重试', key: loadingKey });
+          message.error({ 
+            content: '保存文件失败，请重试', 
+            key: loadingKey,
+            duration: 3 
+          });
         } finally {
           setIsProcessing(false);
           setProgress(0);
@@ -287,7 +302,11 @@ const GifCreate: React.FC = () => {
 
             // 创建临时canvas来处理图片
             const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            const ctx = canvas.getContext('2d', { 
+              willReadFrequently: true,
+              alpha: false  // 禁用 alpha 通道以提高性能
+            });
+            
             if (!ctx) {
               const error = new Error('无法创建canvas上下文');
               console.error('[GIF Create] Canvas错误:', error);
@@ -295,72 +314,95 @@ const GifCreate: React.FC = () => {
               return;
             }
 
-            // 设置canvas尺寸
-            if (i === 0) {
-              // 使用第一张图片的尺寸作为基准
-              canvas.width = img.width;
-              canvas.height = img.height;
-              console.log('[GIF Create] 设置GIF尺寸:', {
-                width: img.width,
-                height: img.height
+            try {
+              // 设置canvas尺寸
+              if (i === 0) {
+                // 使用第一张图片的尺寸作为基准
+                canvas.width = img.width;
+                canvas.height = img.height;
+                console.log('[GIF Create] 设置GIF尺寸:', {
+                  width: img.width,
+                  height: img.height
+                });
+                gif.setOptions({
+                  width: img.width,
+                  height: img.height
+                });
+              } else {
+                // 调整其他图片尺寸以匹配第一张图片
+                canvas.width = gif.options.width!;
+                canvas.height = gif.options.height!;
+              }
+
+              // 在绘制之前清空画布并设置白色背景
+              ctx.fillStyle = '#FFFFFF';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              
+              // 计算缩放和居中绘制的参数
+              const scale = Math.min(
+                canvas.width / img.width,
+                canvas.height / img.height
+              );
+              const x = (canvas.width - img.width * scale) / 2;
+              const y = (canvas.height - img.height * scale) / 2;
+
+              console.log(`[GIF Create] 图片 ${i + 1} 绘制参数:`, {
+                scale,
+                x,
+                y,
+                canvasWidth: canvas.width,
+                canvasHeight: canvas.height,
+                imageWidth: img.width,
+                imageHeight: img.height
               });
-              gif.setOptions({
-                width: img.width,
-                height: img.height
+
+              // 绘制图片（保持比例并居中）
+              ctx.save();
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = 'high';
+              ctx.drawImage(
+                img,
+                x, y,
+                img.width * scale,
+                img.height * scale
+              );
+              ctx.restore();
+
+              // 验证画布内容
+              try {
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                if (!imageData || !imageData.data || imageData.data.length === 0) {
+                  throw new Error('Canvas 数据无效');
+                }
+                console.log(`[GIF Create] 图片 ${i + 1} 数据验证成功`);
+              } catch (error) {
+                console.error(`[GIF Create] 图片 ${i + 1} 数据验证失败:`, error);
+                throw error;
+              }
+
+              // 添加帧
+              console.log(`[GIF Create] 添加第 ${i + 1} 帧`);
+              gif.addFrame(canvas, {
+                delay: settings.frameDelay || 100,
+                copy: true,
+                dispose: 2, // 清除上一帧
+                transparent: null // 不使用透明色
               });
-            } else {
-              // 调整其他图片尺寸以匹配第一张图片
-              canvas.width = gif.options.width!;
-              canvas.height = gif.options.height!;
+
+              // 更新进度
+              const loadProgress = Math.floor(((i + 1) / images.length) * 30);
+              setProgress(loadProgress);
+              message.loading({
+                content: `正在处理第 ${i + 1}/${images.length} 张图片...`,
+                key: loadingKey,
+                duration: 0
+              });
+
+              resolve();
+            } catch (error) {
+              console.error(`[GIF Create] 处理图片 ${i + 1} 时发生错误:`, error);
+              reject(error);
             }
-
-            // 在绘制之前清空画布并设置白色背景
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // 计算缩放和居中绘制的参数
-            const scale = Math.min(
-              canvas.width / img.width,
-              canvas.height / img.height
-            );
-            const x = (canvas.width - img.width * scale) / 2;
-            const y = (canvas.height - img.height * scale) / 2;
-
-            console.log(`[GIF Create] 图片 ${i + 1} 绘制参数:`, {
-              scale,
-              x,
-              y,
-              canvasWidth: canvas.width,
-              canvasHeight: canvas.height
-            });
-
-            // 绘制图片（保持比例并居中）
-            ctx.drawImage(
-              img,
-              x, y,
-              img.width * scale,
-              img.height * scale
-            );
-
-            // 添加帧
-            console.log(`[GIF Create] 添加第 ${i + 1} 帧`);
-            gif.addFrame(canvas, {
-              delay: settings.frameDelay || 100,
-              copy: true,
-              dispose: 2, // 清除上一帧
-              transparent: null // 不使用透明色
-            });
-
-            // 更新进度
-            const loadProgress = Math.floor(((i + 1) / images.length) * 30);
-            setProgress(loadProgress);
-            message.loading({
-              content: `正在处理第 ${i + 1}/${images.length} 张图片...`,
-              key: loadingKey,
-              duration: 0
-            });
-
-            resolve();
           };
           img.onerror = (error) => {
             console.error(`[GIF Create] 图片 ${i + 1} 加载失败:`, error);
