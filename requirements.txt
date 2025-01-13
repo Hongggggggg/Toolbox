@@ -1,0 +1,15 @@
+# Web 框架和服务器
+fastapi>=0.104.1
+uvicorn>=0.24.0
+
+# OCR相关
+paddleocr>=2.7.0.3
+paddlepaddle-cpu>=2.6.0
+
+# 图像处理和数据处理
+numpy>=1.26.2
+opencv-python-headless>=4.6.0.66,<4.7.0.0
+Pillow>=10.1.0
+
+# 其他工具
+python-multipart>=0.0.6 
