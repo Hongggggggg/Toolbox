@@ -28,6 +28,7 @@ export const toolCategories: ToolCategory[] = [
     icon: 'type',
     tools: [
       { name: '文本对比', path: '/tools/text/compare', description: '对比两段文本之间的差异，支持高亮显示不同之处' },
+      { name: '英文格式化', path: '/tools/text/format', description: '英文文本格式化工具，支持全部大写、全部小写、句首大写等功能' },
     ],
   },
   {

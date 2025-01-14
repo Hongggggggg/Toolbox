@@ -19,6 +19,7 @@ import { PDFToImage } from './pages/tools/document/PDFToImage';
 import ImageToPDF from './pages/tools/document/ImageToPDF';
 import { WordToPDF } from './pages/tools/document/WordToPDF';
 import TextCompare from './pages/tools/text/TextCompare';
+import TextFormat from './pages/tools/text/TextFormat';
 
 const App: React.FC = () => {
   return (
@@ -43,6 +44,7 @@ const App: React.FC = () => {
           <Route path="/tools/document/image-to-pdf" element={<ImageToPDF />} />
           <Route path="/tools/document/word-to-pdf" element={<WordToPDF />} />
           <Route path="/tools/text/compare" element={<TextCompare />} />
+          <Route path="/tools/text/format" element={<TextFormat />} />
         </Routes>
       </Layout>
     </Router>

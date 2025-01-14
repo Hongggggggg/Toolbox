@@ -1,0 +1,44 @@
+.container {
+  @apply max-w-7xl mx-auto px-4 py-8;
+}
+
+.title {
+  @apply text-2xl font-bold text-gray-900 mb-8;
+}
+
+.subtitle {
+  @apply text-base font-medium text-gray-700 mb-2;
+}
+
+.formatOptions {
+  @apply mb-6 flex justify-start items-center;
+}
+
+.inputContainer {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+.inputWrapper {
+  @apply w-full;
+}
+
+.textarea {
+  @apply w-full h-64 p-4 border border-gray-200 rounded-lg 
+         text-gray-700 bg-white resize-none
+         hover:border-indigo-400 transition-colors
+         font-mono text-sm;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  outline: none;
+  line-height: 1.6;
+}
+
+.textarea:focus {
+  @apply border-indigo-500;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+.textarea[readonly] {
+  @apply bg-gray-50;
+  cursor: default;
+} 
