@@ -1,0 +1,66 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.uploadArea {
+  margin: 20px 0;
+}
+
+.options {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.option span {
+  min-width: 100px;
+  margin-right: 16px;
+}
+
+.option :global(.ant-select) {
+  width: 160px;
+}
+
+.option :global(.ant-select-selector) {
+  display: flex;
+  align-items: center;
+}
+
+.option :global(.ant-select-arrow) {
+  right: 11px;
+}
+
+.progress {
+  margin: 20px 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 576px) {
+  .container {
+    padding: 10px;
+  }
+
+  .option {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .option span {
+    margin-bottom: 8px;
+  }
+} 

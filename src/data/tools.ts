@@ -57,6 +57,7 @@ export const toolCategories: ToolCategory[] = [
     tools: [
       { name: 'PDF转图片', path: '/tools/document/pdf-to-image', description: '将PDF文档转换为高质量图片，支持批量转换和自定义设置' },
       { name: '图片转PDF', path: '/tools/document/image-to-pdf', description: '将多张图片合成为PDF文档，支持自定义页面大小和布局' },
+      { name: 'Word转PDF', path: '/tools/document/word-to-pdf', description: '将Word文档转换为PDF格式，支持批量转换和格式设置' },
     ],
   },
   {
