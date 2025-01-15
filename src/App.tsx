@@ -20,6 +20,7 @@ import ImageToPDF from './pages/tools/document/ImageToPDF';
 import { WordToPDF } from './pages/tools/document/WordToPDF';
 import TextCompare from './pages/tools/text/TextCompare';
 import TextFormat from './pages/tools/text/TextFormat';
+import MD5 from './pages/tools/development/MD5';
 
 const App: React.FC = () => {
   return (
@@ -45,6 +46,7 @@ const App: React.FC = () => {
           <Route path="/tools/document/word-to-pdf" element={<WordToPDF />} />
           <Route path="/tools/text/compare" element={<TextCompare />} />
           <Route path="/tools/text/format" element={<TextFormat />} />
+          <Route path="/tools/development/md5" element={<MD5 />} />
         </Routes>
       </Layout>
     </Router>

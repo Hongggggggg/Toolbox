@@ -92,5 +92,19 @@ export const toolCategories: ToolCategory[] = [
       { name: '计算工具', path: '/tools/life/calculator', description: '多功能计算器，支持各种复杂计算' },
       { name: '单位转换', path: '/tools/life/converter', description: '支持长度、面积、体积等多种单位转换' },
     ],
+  },
+  {
+    id: 'development',
+    name: '开发工具',
+    path: '/tools/development',
+    icon: 'code',
+    tools: [
+      { name: 'JSON格式化', path: '/tools/development/json-format', description: 'JSON数据格式化和验证工具' },
+      { name: 'Base64转换', path: '/tools/development/base64', description: '支持文本和文件的Base64编码和解码' },
+      { name: 'URL编解码', path: '/tools/development/url-codec', description: 'URL编码和解码工具' },
+      { name: '时间戳转换', path: '/tools/development/timestamp', description: '时间戳和日期时间的相互转换' },
+      { name: '正则测试', path: '/tools/development/regex', description: '正则表达式在线测试工具' },
+      { name: 'MD5计算器', path: '/tools/development/md5', description: '快速计算文本的MD5哈希值，支持复制结果' },
+    ],
   }
 ]; 

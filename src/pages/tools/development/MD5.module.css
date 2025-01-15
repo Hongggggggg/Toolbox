@@ -1,0 +1,51 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.button {
+  align-self: flex-start;
+}
+
+.result {
+  margin-top: 24px;
+}
+
+.copyIcon {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.copyIcon:hover {
+  color: #1890ff;
+}
+
+.fileInfo {
+  margin-top: 8px;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sizeLimit {
+  font-size: 14px;
+  margin-top: -8px;
+}
+
+/* 文件上传区域样式 */
+:global(.ant-upload-list) {
+  margin-top: 16px;
+} 
