@@ -1,0 +1,152 @@
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  padding-left: calc(270px + 24px); /* sidebar宽度 + padding */
+}
+
+.container > :global(.ant-card) {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.container > :global(.ant-card) :global(.ant-card-body) {
+  padding: 20px 24px;
+}
+
+.editorContainer {
+  display: flex;
+  gap: 20px;
+  margin: 16px 0;
+}
+
+.inputSection,
+.outputSection {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputSection {
+  gap: 12px;
+}
+
+.outputSection {
+  padding-top: 44px; /* 与按钮组高度 + gap对齐 */
+}
+
+.jsonInput,
+.jsonOutput {
+  width: 100%;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+  border-radius: 6px;
+  transition: all 0.2s;
+  padding: 12px;
+  min-height: 600px;
+  background-color: #ffffff;
+}
+
+.jsonInput:hover,
+.jsonOutput:hover,
+.jsonInput:focus,
+.jsonOutput:focus {
+  border-color: rgb(79, 70, 228) !important;
+  box-shadow: 0 0 0 2px rgba(79, 70, 228, 0.1) !important;
+  outline: none !important;
+}
+
+.jsonOutput {
+  background-color: #fafafa;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 0 2px;
+}
+
+.buttonGroup button {
+  padding: 4px 20px;
+  height: 32px;
+  min-width: 88px;
+}
+
+.charCount {
+  margin-left: auto;
+  font-size: 13px;
+  color: #666;
+}
+
+.copyButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  height: 28px;
+  padding: 0 12px;
+}
+
+.copyButton:hover {
+  background-color: #f5f5f5;
+}
+
+/* 响应式布局 - 大屏幕 */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1600px;
+  }
+
+  .jsonInput,
+  .jsonOutput {
+    min-height: 680px;
+  }
+}
+
+/* 响应式布局 - 中等屏幕 */
+@media (max-width: 1200px) {
+  .container {
+    max-width: none;
+    padding: 20px;
+    padding-left: calc(270px + 20px);
+  }
+}
+
+/* 响应式布局 - 小屏幕 */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+
+  .container > :global(.ant-card) :global(.ant-card-body) {
+    padding: 16px;
+  }
+
+  .editorContainer {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .inputSection,
+  .outputSection {
+    width: 100%;
+  }
+
+  .outputSection {
+    padding-top: 0;
+  }
+
+  .jsonInput,
+  .jsonOutput {
+    min-height: 400px;
+  }
+} 

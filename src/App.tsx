@@ -21,6 +21,7 @@ import { WordToPDF } from './pages/tools/document/WordToPDF';
 import TextCompare from './pages/tools/text/TextCompare';
 import TextFormat from './pages/tools/text/TextFormat';
 import MD5 from './pages/tools/development/MD5';
+import JSONFormat from './pages/tools/development/JSONFormat';
 
 const App: React.FC = () => {
   return (
@@ -47,6 +48,7 @@ const App: React.FC = () => {
           <Route path="/tools/text/compare" element={<TextCompare />} />
           <Route path="/tools/text/format" element={<TextFormat />} />
           <Route path="/tools/development/md5" element={<MD5 />} />
+          <Route path="/tools/development/json-format" element={<JSONFormat />} />
         </Routes>
       </Layout>
     </Router>
