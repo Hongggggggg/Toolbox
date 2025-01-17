@@ -33,18 +33,31 @@ const TextCompare: React.FC = () => {
   const processDiffs = (diffs: Array<[number, string]>): DiffResult[] => {
     const results: DiffResult[] = [];
     
-    // 将文本按行分割并处理
     diffs.forEach(([type, text]) => {
-      // 保留换行符，使用正向预查确保换行符被保留在分割结果中
-      const lines = text.split(/(?<=\n)/);
+      // 如果是空文本，直接跳过
+      if (!text) return;
+
+      // 将文本分割成行，但保留空行
+      const lines = text.split(/(\n)/);
       
-      lines.forEach((line) => {
-        if (line === '') return;
-        
-        results.push({
-          text: line,
-          type: type === -1 ? 'delete' : type === 1 ? 'insert' : 'equal'
-        });
+      lines.forEach((line, index) => {
+        // 对于换行符，添加特殊标记
+        if (line === '\n') {
+          results.push({
+            text: '↵\n',
+            type: type === -1 ? 'delete' : type === 1 ? 'insert' : 'equal',
+            isNewline: true
+          });
+          return;
+        }
+
+        // 对于非换行符的内容，即使是空字符串也要显示
+        if (line !== '') {
+          results.push({
+            text: line,
+            type: type === -1 ? 'delete' : type === 1 ? 'insert' : 'equal'
+          });
+        }
       });
     });
     
@@ -55,22 +68,55 @@ const TextCompare: React.FC = () => {
    * 计算文本差异
    */
   const diffs = useMemo(() => {
-    if (!leftText && !rightText) return [];
-    
     const dmp = new diff_match_patch();
-    // 设置更细粒度的差异检测
-    dmp.Diff_Timeout = 2;
-    dmp.Diff_EditCost = 4;
-
-    // 确保文本以换行符结尾
-    const normalizedLeftText = leftText.endsWith('\n') ? leftText : leftText + '\n';
-    const normalizedRightText = rightText.endsWith('\n') ? rightText : rightText + '\n';
-
-    // 计算差异
-    const diff = dmp.diff_main(normalizedLeftText, normalizedRightText);
-    dmp.diff_cleanupSemantic(diff);
     
-    return processDiffs(diff);
+    // 如果两个文本都为空，返回空数组
+    if (!leftText && !rightText) return [];
+
+    // 将文本按行分割，并过滤掉空行
+    const leftLines = leftText.split('\n').filter(line => line.trim() !== '');
+    const rightLines = rightText.split('\n').filter(line => line.trim() !== '');
+    
+    const results: DiffResult[] = [];
+    
+    // 逐行比较差异
+    const maxLines = Math.max(leftLines.length, rightLines.length);
+    for (let i = 0; i < maxLines; i++) {
+      const leftLine = leftLines[i] || '';
+      const rightLine = rightLines[i] || '';
+      
+      if (leftLine === rightLine) {
+        // 完全相同的行
+        results.push({
+          text: leftLine,
+          type: 'equal'
+        });
+      } else {
+        // 行内容不同，使用diff-match-patch进行详细比较
+        const lineDiff = dmp.diff_main(leftLine, rightLine);
+        dmp.diff_cleanupEfficiency(lineDiff);
+        
+        // 处理行内差异
+        lineDiff.forEach(([type, text]) => {
+          if (text) {
+            results.push({
+              text,
+              type: type === -1 ? 'delete' : type === 1 ? 'insert' : 'equal'
+            });
+          }
+        });
+      }
+      
+      // 每行后添加换行符（除了最后一行）
+      if (i < maxLines - 1) {
+        results.push({
+          text: '\n',
+          type: 'equal'
+        });
+      }
+    }
+    
+    return results;
   }, [leftText, rightText]);
 
   /**

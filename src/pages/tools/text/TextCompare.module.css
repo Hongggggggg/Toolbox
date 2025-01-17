@@ -39,16 +39,13 @@
 }
 
 .diffResult {
-  @apply font-mono text-sm bg-white p-4 rounded-lg border border-gray-100 max-h-96 overflow-auto;
-  tab-size: 4;
+  @apply font-mono text-sm bg-white p-4 rounded-lg border border-gray-100 max-h-96 overflow-auto whitespace-pre-wrap;
   line-height: 1.6;
 }
 
 .diffText {
   @apply inline;
-  white-space: pre-wrap;
-  word-break: break-all;
-  word-wrap: break-word;
+  word-break: break-word;
   vertical-align: top;
 }
 
@@ -66,4 +63,15 @@
 
 .equal {
   @apply text-gray-600;
+}
+
+/* 添加换行符的特殊样式 */
+.diffText[data-newline="true"] {
+  @apply text-gray-400 text-xs;
+  font-family: monospace;
+}
+
+/* 确保空格可见 */
+.diffText:not([data-newline="true"]) {
+  white-space: pre-wrap;
 } 
