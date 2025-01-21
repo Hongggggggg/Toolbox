@@ -1,0 +1,95 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.description {
+  margin-bottom: 24px;
+  color: #666;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inputSection,
+.outputSection {
+  margin-bottom: 24px;
+}
+
+.label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.textarea {
+  width: 100%;
+  margin-bottom: 16px;
+  font-family: monospace;
+}
+
+/* 修改输入框样式为紫色主题 */
+:global(.ant-input),
+:global(.ant-input-textarea),
+.textarea :global(.ant-input) {
+  border-color: #d9d9d9 !important;
+  transition: all 0.3s !important;
+}
+
+:global(.ant-input:hover),
+:global(.ant-input-textarea:hover),
+.textarea :global(.ant-input:hover) {
+  border-color: #9254de !important;
+}
+
+:global(.ant-input:focus),
+:global(.ant-input-textarea:focus),
+.textarea :global(.ant-input:focus) {
+  border-color: #9254de !important;
+  box-shadow: 0 0 0 2px rgba(146, 84, 222, 0.2) !important;
+  outline: 0;
+}
+
+:global(.ant-input-focused),
+:global(.ant-input-textarea-focused),
+.textarea :global(.ant-input-focused) {
+  border-color: #9254de !important;
+  box-shadow: 0 0 0 2px rgba(146, 84, 222, 0.2) !important;
+  outline: 0;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.copyButton {
+  margin-top: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .buttonGroup button {
+    width: 100%;
+  }
+} 
