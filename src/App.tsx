@@ -24,6 +24,7 @@ import MD5 from './pages/tools/development/MD5';
 import JSONFormat from './pages/tools/development/JSONFormat';
 import Base64 from './pages/tools/development/Base64';
 import URLCodec from './pages/tools/development/URLCodec';
+import TimestampConverter from './pages/tools/development/TimestampConverter';
 
 const App: React.FC = () => {
   return (
@@ -53,6 +54,7 @@ const App: React.FC = () => {
           <Route path="/tools/development/json-format" element={<JSONFormat />} />
           <Route path="/tools/development/base64" element={<Base64 />} />
           <Route path="/tools/development/url-codec" element={<URLCodec />} />
+          <Route path="/tools/development/timestamp" element={<TimestampConverter />} />
         </Routes>
       </Layout>
     </Router>
