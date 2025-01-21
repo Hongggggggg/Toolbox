@@ -22,6 +22,7 @@ import TextCompare from './pages/tools/text/TextCompare';
 import TextFormat from './pages/tools/text/TextFormat';
 import MD5 from './pages/tools/development/MD5';
 import JSONFormat from './pages/tools/development/JSONFormat';
+import Base64 from './pages/tools/development/Base64';
 
 const App: React.FC = () => {
   return (
@@ -49,6 +50,7 @@ const App: React.FC = () => {
           <Route path="/tools/text/format" element={<TextFormat />} />
           <Route path="/tools/development/md5" element={<MD5 />} />
           <Route path="/tools/development/json-format" element={<JSONFormat />} />
+          <Route path="/tools/development/base64" element={<Base64 />} />
         </Routes>
       </Layout>
     </Router>
