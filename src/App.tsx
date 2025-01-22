@@ -26,6 +26,7 @@ import Base64 from './pages/tools/development/Base64';
 import URLCodec from './pages/tools/development/URLCodec';
 import TimestampConverter from './pages/tools/development/TimestampConverter';
 import RegexTester from './pages/tools/development/RegexTester';
+import UnitConverter from './pages/tools/life/UnitConverter';
 
 const App: React.FC = () => {
   return (
@@ -57,6 +58,7 @@ const App: React.FC = () => {
           <Route path="/tools/development/url-codec" element={<URLCodec />} />
           <Route path="/tools/development/timestamp" element={<TimestampConverter />} />
           <Route path="/tools/development/regex" element={<RegexTester />} />
+          <Route path="/tools/life/converter" element={<UnitConverter />} />
         </Routes>
       </Layout>
     </Router>
