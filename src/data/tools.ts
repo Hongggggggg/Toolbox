@@ -89,7 +89,6 @@ export const toolCategories: ToolCategory[] = [
     path: '/tools/life',
     icon: 'check-circle',
     tools: [
-      { name: '计算工具', path: '/tools/life/calculator', description: '多功能计算器，支持各种复杂计算' },
       { name: '单位转换', path: '/tools/life/converter', description: '支持长度、面积、体积等多种单位转换' },
     ],
   },
