@@ -1,0 +1,220 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.regexInput {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.flags {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.charCount {
+  font-size: 0.875rem;
+}
+
+.testInput {
+  width: 100%;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.results {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resultHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.matchResult {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 120px;
+  max-height: 300px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+.matchResult::-webkit-scrollbar {
+  width: 6px;
+}
+
+.matchResult::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.matchResult::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 3px;
+}
+
+.matchResult::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+.highlight {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+  padding: 2px 0;
+  border-radius: 2px;
+}
+
+.error {
+  color: #dc2626;
+  padding: 12px;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.matchInfo {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.matchInfo::-webkit-scrollbar {
+  width: 6px;
+}
+
+.matchInfo::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.matchInfo::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 3px;
+}
+
+.matchInfo::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+.matchGroup {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  align-items: flex-start;
+}
+
+.groupIndex {
+  color: #4f46e5;
+  font-weight: 500;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.groupContent {
+  font-family: monospace;
+  word-break: break-all;
+  white-space: pre-wrap;
+  flex: 1;
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+.matchGroups {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 自定义Checkbox样式 */
+:global(.ant-checkbox-wrapper:hover .ant-checkbox-inner),
+:global(.ant-checkbox:hover .ant-checkbox-inner),
+:global(.ant-checkbox-input:focus + .ant-checkbox-inner) {
+  border-color: #4f46e5 !important;
+}
+
+:global(.ant-checkbox-checked .ant-checkbox-inner) {
+  background-color: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+}
+
+/* 自定义Input样式 */
+:global(.ant-input:hover),
+:global(.ant-input:focus),
+:global(.ant-input-focused) {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1) !important;
+}
+
+:global(.ant-input-affix-wrapper:hover),
+:global(.ant-input-affix-wrapper:focus),
+:global(.ant-input-affix-wrapper-focused) {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1) !important;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .regexInput {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flags {
+    flex-wrap: wrap;
+  }
+
+  .matchGroup {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .groupIndex {
+    min-width: auto;
+  }
+} 
