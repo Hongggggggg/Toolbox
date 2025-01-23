@@ -133,8 +133,26 @@ const Merge = () => {
     }
   }, [images, settings]);
 
+  const handleRemoveImage = (id: string) => {
+    setImages(prev => {
+      // 找到要删除的图片并释放其 URL 资源
+      const imageToRemove = prev.find(img => img.id === id);
+      if (imageToRemove && imageToRemove.url.startsWith('data:')) {
+        URL.revokeObjectURL(imageToRemove.url);
+      }
+
+      const newImages = prev.filter(img => img.id !== id);
+      if (newImages.length === 0) {
+        // 当删除最后一张图片时，清除预览图
+        setMergedImage(null);
+      }
+      return newImages;
+    });
+  };
+
   const processNewImages = (files: File[]) => {
     setError(null);
+    setMergedImage(null); // 清除之前的预览图
 
     // 检查文件总数是否超出限制
     if (images.length + files.length > MAX_FILE_COUNT) {
@@ -193,10 +211,6 @@ const Merge = () => {
     if (files.length > 0) {
       processNewImages(files);
     }
-  };
-
-  const handleRemoveImage = (id: string) => {
-    setImages(prev => prev.filter(img => img.id !== id));
   };
 
   const handleDownload = () => {
@@ -510,7 +524,16 @@ const Merge = () => {
                       />
                       <button
                         className="absolute top-2 right-2 bg-black/50 text-white text-xs p-1.5 rounded opacity-0 group-hover:opacity-100 transition-all duration-200"
-                        onClick={() => setMergedImage(null)}
+                        onClick={() => {
+                          // 清除所有图片资源
+                          images.forEach(img => {
+                            if (img.url.startsWith('data:')) {
+                              URL.revokeObjectURL(img.url);
+                            }
+                          });
+                          setImages([]);
+                          setMergedImage(null);
+                        }}
                         type="button"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -537,13 +560,16 @@ const Merge = () => {
                               alt={`Image ${index + 1}`}
                               className="w-full h-full object-cover rounded-lg"
                             />
-                            <div className="absolute top-1 right-1 flex gap-1">
+                            <div className="absolute top-1 right-1 flex gap-1 z-10">
                               <div className="bg-black/50 text-white text-xs px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-all duration-200">
                                 {index + 1}
                               </div>
                               <button
-                                className="bg-black/50 text-white text-xs p-1 rounded opacity-0 group-hover:opacity-100 transition-all duration-200"
-                                onClick={() => handleRemoveImage(image.id)}
+                                className="bg-black/50 text-white text-xs p-1 rounded opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-500"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleRemoveImage(image.id);
+                                }}
                                 type="button"
                               >
                                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
