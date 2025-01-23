@@ -24,6 +24,7 @@ export default defineConfig({
         style-src 'self' 'unsafe-inline' https://cdn.bootcdn.net;
         font-src 'self' https://cdn.bootcdn.net data: https://cdn.bootcdn.net/ajax/libs/font-awesome/;
         img-src 'self' data: blob: https://*.baidu.com;
+        media-src 'self' blob: data:;
         connect-src 'self' ws: wss: https://*.baidu.com;
         frame-src 'self' https://*.baidu.com;
         object-src 'none';

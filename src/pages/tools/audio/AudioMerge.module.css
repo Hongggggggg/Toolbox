@@ -1,0 +1,136 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.uploader {
+  margin-bottom: 1rem;
+}
+
+.fileList {
+  margin: 1rem 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.fileItem {
+  padding: 0.75rem !important;
+  margin: 0.5rem 0 !important;
+  background-color: #fafafa;
+  border-radius: 8px !important;
+  transition: all 0.3s ease;
+}
+
+.fileItem:hover {
+  background-color: #f0f0f0;
+}
+
+.fileItem :global(.ant-list-item-meta) {
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.fileItem :global(.ant-list-item-meta-title) {
+  margin-bottom: 0 !important;
+  font-size: 14px;
+}
+
+.fileItem :global(.ant-list-item-meta-description) {
+  font-size: 13px;
+  color: #666;
+}
+
+.fileItem :global(.ant-list-item-action) {
+  margin-left: 1rem;
+}
+
+.fileItem :global(.ant-list-item-action > li) {
+  padding: 0 4px;
+  margin-right: 4px;
+}
+
+.fileItem :global(.ant-btn) {
+  padding: 4px 8px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.actions button {
+  min-width: 120px;
+  height: 36px;
+  font-size: 14px;
+}
+
+/* 自定义上传区域样式 */
+:global(.ant-upload-drag) {
+  background: #fafafa;
+  border: 2px dashed #e8e8e8;
+  border-radius: 8px;
+  padding: 1rem !important;
+  transition: all 0.3s;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+:global(.ant-upload-drag:hover) {
+  border-color: var(--ant-primary-color);
+  background: #f6f6f6;
+}
+
+:global(.ant-upload-drag-icon) {
+  color: var(--ant-primary-color);
+  font-size: 32px !important;
+  margin-bottom: 0.5rem !important;
+}
+
+:global(.ant-upload-text) {
+  font-size: 14px !important;
+  color: #262626;
+  margin: 0.25rem 0 !important;
+}
+
+:global(.ant-upload-hint) {
+  color: #666;
+  font-size: 12px !important;
+  max-width: 80%;
+  margin: 0.25rem auto !important;
+}
+
+/* 响应式布局 */
+@media (max-width: 576px) {
+  .container {
+    margin: 1rem auto;
+  }
+  
+  .fileItem {
+    padding: 0.5rem !important;
+  }
+
+  .fileItem :global(.ant-list-item-meta-title) {
+    font-size: 13px;
+  }
+
+  .fileItem :global(.ant-list-item-meta-description) {
+    font-size: 12px;
+  }
+
+  .fileItem :global(.ant-list-item-action > li) {
+    padding: 0 3px;
+    margin-right: 3px;
+  }
+
+  .actions button {
+    min-width: 100px;
+    height: 32px;
+    font-size: 13px;
+  }
+} 
