@@ -28,6 +28,7 @@ import TimestampConverter from './pages/tools/development/TimestampConverter';
 import RegexTester from './pages/tools/development/RegexTester';
 import UnitConverter from './pages/tools/life/UnitConverter';
 import AudioMerge from './pages/tools/audio/AudioMerge';
+import QRCodeCard from './pages/tools/life/QRCodeCard';
 
 const App: React.FC = () => {
   return (
@@ -61,6 +62,7 @@ const App: React.FC = () => {
           <Route path="/tools/development/regex" element={<RegexTester />} />
           <Route path="/tools/life/converter" element={<UnitConverter />} />
           <Route path="/tools/audio/merge" element={<AudioMerge />} />
+          <Route path="/tools/life/qrcode-card" element={<QRCodeCard />} />
         </Routes>
       </Layout>
     </Router>

@@ -1,0 +1,66 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-left: 260px;
+  width: calc(100% - 280px);
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+.content {
+  margin-top: 24px;
+}
+
+.form {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.qrcodeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.qrcode {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder {
+  color: #999;
+  font-size: 16px;
+}
+
+.downloadButton {
+  min-width: 120px;
+}
+
+/* 响应式布局 */
+@media screen and (max-width: 768px) {
+  .qrcodeContainer {
+    margin-top: 24px;
+  }
+  
+  .form {
+    padding: 16px;
+  }
+} 

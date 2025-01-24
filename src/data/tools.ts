@@ -90,6 +90,7 @@ export const toolCategories: ToolCategory[] = [
     icon: 'check-circle',
     tools: [
       { name: '单位转换', path: '/tools/life/converter', description: '支持长度、面积、体积等多种单位转换' },
+      { name: '二维码名片', path: '/tools/life/qrcode-card', description: '生成包含个人信息的二维码名片，支持扫码自动保存联系人' },
     ],
   },
   {
